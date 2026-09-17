@@ -935,10 +935,17 @@ footer p,footer a{font-size:.9rem;line-height:1.8;color:#f2e5d2}
 .work-card img:not(.motion-preview){background:rgba(255,255,255,.08)}
 @media(max-width:800px){
   .hero-grid{grid-template-columns:1fr;gap:28px}
-  .hero h1{font-size:clamp(3.4rem,15vw,6.5rem);line-height:.92}
+  .hero h1{font-size:clamp(3.4rem,15vw,6.5rem);line-height:.92;letter-spacing:-.025em}
   .hero h1 em{white-space:normal}
+  .solution-layout{grid-template-columns:1fr;gap:38px}
+  .solution-layout h2{font-size:clamp(3.6rem,16vw,6.5rem);line-height:.9;letter-spacing:-.035em}
+  .solution-item{flex-wrap:wrap;gap:8px;font-size:1.25rem}
+  .solution-item span{min-width:0;overflow-wrap:anywhere}
+  .solution-item small{margin-left:auto}
   .work-card img:not(.motion-preview){padding:18px}
 }
+
+html,body{max-width:100%;overflow-x:hidden}
 </style>
 </head>
 
