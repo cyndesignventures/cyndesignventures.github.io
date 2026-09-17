@@ -1913,211 +1913,226 @@ document.addEventListener("DOMContentLoaded", function(){
    TESTIMONIAL CAROUSEL
    ======================================== */
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function () {
 
-  const testimonialSlides =
-    document.querySelectorAll(
-      "#testimonials .testimonial-slide"
-    );
+  const slides = document.querySelectorAll(
+    ".testimonial-slide"
+  );
 
-  const testimonialDots =
-    document.querySelectorAll(
-      "#testimonials .testimonial-dot"
-    );
+  const dots = document.querySelectorAll(
+    ".testimonial-dot"
+  );
 
-  const testimonialPrev =
-    document.querySelector(
-      "#testimonials .testimonial-prev"
-    );
+  const prev = document.querySelector(
+    ".testimonial-prev"
+  );
 
-  const testimonialNext =
-    document.querySelector(
-      "#testimonials .testimonial-next"
-    );
+  const next = document.querySelector(
+    ".testimonial-next"
+  );
 
 
-  /* Safety check */
+  /* CHECK THAT EVERYTHING EXISTS */
 
-  if(
-    !testimonialSlides.length ||
-    !testimonialPrev ||
-    !testimonialNext
-  ){
+  console.log("Testimonials found:", slides.length);
+  console.log("Dots found:", dots.length);
+  console.log("Previous button:", prev);
+  console.log("Next button:", next);
 
-    console.log("Testimonial carousel elements not found.");
 
+  if (
+    slides.length === 0 ||
+    !prev ||
+    !next
+  ) {
+    console.log("TESTIMONIAL CAROUSEL ERROR");
     return;
-
   }
 
 
-  let testimonialIndex = 0;
+  let current = 0;
+  let timer;
 
-  let testimonialTimer = null;
 
+  /* ========================================
+     SHOW A TESTIMONIAL
+     ======================================== */
 
-  /* SHOW TESTIMONIAL */
+  function showTestimonial(index) {
 
-  function showTestimonial(index){
+    /* Loop backwards */
 
-    if(index < 0){
-
-      index = testimonialSlides.length - 1;
-
+    if (index < 0) {
+      index = slides.length - 1;
     }
 
-    if(index >= testimonialSlides.length){
 
+    /* Loop forwards */
+
+    if (index >= slides.length) {
       index = 0;
-
     }
 
 
-    testimonialSlides.forEach(function(slide, i){
+    /* Hide every slide */
 
-      slide.classList.toggle(
-        "active",
-        i === index
-      );
+    slides.forEach(function (slide) {
+
+      slide.style.display = "none";
+      slide.classList.remove("active");
 
     });
 
 
-    testimonialDots.forEach(function(dot, i){
+    /* Show selected slide */
 
-      dot.classList.toggle(
-        "active",
-        i === index
-      );
+    slides[index].style.display = "block";
+    slides[index].classList.add("active");
+
+
+    /* Update dots */
+
+    dots.forEach(function (dot) {
+
+      dot.classList.remove("active");
 
     });
 
 
-    testimonialIndex = index;
+    if (dots[index]) {
 
-  }
-
-
-  /* NEXT */
-
-  function nextTestimonial(){
-
-    showTestimonial(
-      testimonialIndex + 1
-    );
-
-  }
-
-
-  /* PREVIOUS */
-
-  function previousTestimonial(){
-
-    showTestimonial(
-      testimonialIndex - 1
-    );
-
-  }
-
-
-  /* NEXT BUTTON */
-
-  testimonialNext.addEventListener(
-    "click",
-    function(event){
-
-      event.preventDefault();
-      event.stopPropagation();
-
-      nextTestimonial();
-
-      restartTestimonialTimer();
+      dots[index].classList.add("active");
 
     }
-  );
 
 
-  /* PREVIOUS BUTTON */
-
-  testimonialPrev.addEventListener(
-    "click",
-    function(event){
-
-      event.preventDefault();
-      event.stopPropagation();
-
-      previousTestimonial();
-
-      restartTestimonialTimer();
-
-    }
-  );
+    current = index;
 
 
-  /* DOT BUTTONS */
-
-  testimonialDots.forEach(function(dot, index){
-
-    dot.addEventListener(
-      "click",
-      function(event){
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        showTestimonial(index);
-
-        restartTestimonialTimer();
-
-      }
+    console.log(
+      "Showing testimonial:",
+      current + 1
     );
+
+  }
+
+
+  /* ========================================
+     NEXT
+     ======================================== */
+
+  function nextTestimonial() {
+
+    showTestimonial(current + 1);
+
+  }
+
+
+  /* ========================================
+     PREVIOUS
+     ======================================== */
+
+  function previousTestimonial() {
+
+    showTestimonial(current - 1);
+
+  }
+
+
+  /* ========================================
+     NEXT ARROW
+     ======================================== */
+
+  next.addEventListener("click", function (event) {
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    console.log("NEXT CLICKED");
+
+    nextTestimonial();
+
+    restartTimer();
 
   });
 
 
-  /* AUTO PLAY */
+  /* ========================================
+     PREVIOUS ARROW
+     ======================================== */
 
-  function startTestimonialTimer(){
+  prev.addEventListener("click", function (event) {
 
-    testimonialTimer =
-      setInterval(
-        nextTestimonial,
-        6000
+    event.preventDefault();
+    event.stopPropagation();
+
+    console.log("PREVIOUS CLICKED");
+
+    previousTestimonial();
+
+    restartTimer();
+
+  });
+
+
+  /* ========================================
+     DOTS
+     ======================================== */
+
+  dots.forEach(function (dot, index) {
+
+    dot.addEventListener("click", function (event) {
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      console.log(
+        "DOT CLICKED:",
+        index + 1
       );
 
+      showTestimonial(index);
+
+      restartTimer();
+
+    });
+
+  });
+
+
+  /* ========================================
+     AUTO PLAY
+     ======================================== */
+
+  function startTimer() {
+
+    timer = setInterval(function () {
+
+      nextTestimonial();
+
+    }, 6000);
+
   }
 
 
-  function restartTestimonialTimer(){
+  function restartTimer() {
 
-    clearInterval(testimonialTimer);
+    clearInterval(timer);
 
-    startTestimonialTimer();
+    startTimer();
 
   }
 
 
-  /* SHOW FIRST TESTIMONIAL */
+  /* ========================================
+     START
+     ======================================== */
 
   showTestimonial(0);
 
-
-  /* START AUTO PLAY */
-
-  const reducedMotion =
-    window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    );
-
-
-  if(!reducedMotion.matches){
-
-    startTestimonialTimer();
-
-  }
+  startTimer();
 
 });
-
 </script>
 
 </body>
