@@ -51,10 +51,67 @@ nav{position:sticky;top:0;z-index:50;background:rgba(251,247,239,.9);backdrop-fi
   right:-170px;
   top:-180px;
   opacity:.88;
-  animation:heroCircleSpin 18s linear infinite;
+}
+.hero-mandala{
+  position:absolute;
+  width:390px;
+  height:390px;
+  right:-105px;
+  top:-115px;
+  border-radius:50%;
+  z-index:0;
+  opacity:.9;
+
+  background:
+    repeating-conic-gradient(
+      from 0deg,
+      var(--maroon) 0deg 8deg,
+      transparent 8deg 16deg,
+      var(--indigo) 16deg 24deg,
+      transparent 24deg 32deg
+    );
+
+  -webkit-mask:
+    radial-gradient(
+      circle,
+      transparent 0 17%,
+      #000 18% 25%,
+      transparent 26% 30%,
+      #000 31% 43%,
+      transparent 44% 48%,
+      #000 49% 62%,
+      transparent 63% 67%,
+      #000 68% 78%,
+      transparent 79%
+    );
+
+  mask:
+    radial-gradient(
+      circle,
+      transparent 0 17%,
+      #000 18% 25%,
+      transparent 26% 30%,
+      #000 31% 43%,
+      transparent 44% 48%,
+      #000 49% 62%,
+      transparent 63% 67%,
+      #000 68% 78%,
+      transparent 79%
+    );
+
+  animation:mandalaSpin 24s linear infinite;
   transform-origin:center;
 }
 
+@keyframes mandalaSpin{
+  from{
+    transform:rotate(0deg);
+  }
+
+  to{
+    transform:rotate(360deg);
+  }
+}
 @keyframes heroCircleSpin{
   from{
     transform:rotate(0deg);
@@ -63,8 +120,8 @@ nav{position:sticky;top:0;z-index:50;background:rgba(251,247,239,.9);backdrop-fi
     transform:rotate(360deg);
   }
 }
-.hero:after{content:"";position:absolute;width:300px;height:300px;background:var(--terracotta);left:-180px;bottom:-150px;transform:rotate(45deg);opacity:.95}
-.hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:50px;align-items:end;position:relative;z-index:1}
+.:after{content:"";position:absolute;width:300px;height:300px;background:var(--terracotta);left:-180px;bottom:-150px;transform:rotate(45deg);opacity:.95}
+.-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:50px;align-items:end;position:relative;z-index:1}
 .hero-kicker{margin-bottom:25px;color:var(--maroon)}
 .hero h1{
   font-size:clamp(4.5rem,10.7vw,10.5rem);
@@ -441,7 +498,14 @@ footer p,footer a{font-size:.9rem;line-height:1.8;color:#f2e5d2}
   .nav-inner{height:72px}
   .logo{width:135px}
   .hero{padding:75px 0;min-height:auto}
-  .hero-grid,.solution-layout{grid-template-columns:1fr}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.35fr .65fr;
+  gap:50px;
+  align-items:end;
+  position:relative;
+  z-index:1;
+}
   .hero h1{font-size:clamp(4rem,19vw,7rem)}
   .hero-note{margin-top:25px}
   .service-grid{grid-template-columns:1fr 1fr}
@@ -890,6 +954,7 @@ footer p,footer a{font-size:.9rem;line-height:1.8;color:#f2e5d2}
 
 <main id="home">
 <section class="hero">
+  <div class="hero-mandala"></div>
   <div class="container hero-grid">
     <div>
       <div class="eyebrow hero-kicker">Consulting · Marketing · Design</div>
