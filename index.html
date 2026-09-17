@@ -280,11 +280,17 @@ section{padding:110px 0}
     margin:0 25px 35px;
   }
 
+@media(max-width:800px){
+
   .work-card .work-mark{
-    top:10px;
-    right:15px;
-    font-size:7rem;
+    top:15px;
+    right:18px;
+    font-size:5rem;
+    line-height:1;
+    opacity:.12;
+    z-index:2;
   }
+
 }
   
 /* TESTIMONIAL */
@@ -681,44 +687,100 @@ footer p,footer a{font-size:.9rem;line-height:1.8;color:#f2e5d2}
   z-index:100002;
 }
 
-/* Mobile */
+/* =========================
+   MOBILE MOTION CARD FIX
+   ========================= */
+
 @media(max-width:800px){
 
-  .motion-video-carousel{
-    min-height:280px;
+  .motion-card{
+    display:flex;
+    flex-direction:column;
+    min-height:auto;
+    padding:0;
   }
 
-  .motion-preview{
-    min-height:280px;
+  /* 03 stays in the top-right */
+  .motion-card .work-mark{
+    position:absolute;
+    top:12px;
+    right:18px;
+    font-size:5rem;
+    line-height:1;
+    opacity:.10;
+    z-index:5;
   }
 
-  .motion-arrow{
-    width:40px;
-    height:40px;
+  /* Motion label */
+  .motion-card .work-tag{
+    position:relative;
+    top:auto;
+    left:auto;
+    right:auto;
+    margin:30px 25px 20px;
+    width:auto;
+    box-sizing:border-box;
+    z-index:6;
   }
 
-  .motion-lightbox{
-    padding:20px;
+  /* Video immediately follows the label */
+  .motion-card .motion-video-carousel{
+    width:100%;
+    height:auto;
+    min-height:0;
+    aspect-ratio:16 / 10;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
   }
 
-  .motion-lightbox video{
-    max-width:95vw;
-    max-height:80vh;
+  .motion-card .motion-preview{
+    width:100%;
+    height:100%;
+    min-height:0;
+    object-fit:contain;
+    display:block;
   }
 
-  .motion-lightbox-arrow{
+  /* Arrows */
+  .motion-card .motion-arrow{
     width:42px;
     height:42px;
-    font-size:18px;
+    z-index:10;
   }
 
-  .motion-lightbox-prev{
-    left:10px;
+  .motion-card .motion-prev{
+    left:15px;
   }
 
-  .motion-lightbox-next{
-    right:10px;
+  .motion-card .motion-next{
+    right:15px;
   }
+
+  /* Play button */
+  .motion-card .motion-play{
+    width:55px;
+    height:55px;
+    font-size:17px;
+  }
+
+  /* Keep title and description below video */
+  .motion-card h3{
+    position:relative;
+    left:auto;
+    top:auto;
+    margin:30px 25px 15px;
+  }
+
+  .motion-card p{
+    position:relative;
+    left:auto;
+    bottom:auto;
+    margin:0 25px 35px;
+  }
+
 }
 </style>
 </head>
