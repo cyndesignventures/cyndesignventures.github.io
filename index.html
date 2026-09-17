@@ -1650,7 +1650,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
  
-  <script>
+<script>
 
 /* ========================================
    MOTION VISUALS VIDEO CAROUSEL
@@ -1685,9 +1685,11 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
   /* Change preview video */
+
   function changePreview(index){
 
-    currentVideo = (index + videos.length) % videos.length;
+    currentVideo =
+      (index + videos.length) % videos.length;
 
     preview.src = videos[currentVideo];
 
@@ -1699,6 +1701,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
   /* Previous */
+
   function previousVideo(){
 
     changePreview(currentVideo - 1);
@@ -1707,6 +1710,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
   /* Next */
+
   function nextVideo(){
 
     changePreview(currentVideo + 1);
@@ -1715,6 +1719,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
   /* Open large popup */
+
   function openVideo(){
 
     lightbox.classList.add("active");
@@ -1732,7 +1737,8 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 
 
-  /* Update 1 / 7 counter */
+  /* Update counter */
+
   function updateCounter(){
 
     counter.textContent =
@@ -1742,6 +1748,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
   /* Previous inside popup */
+
   function previousPopupVideo(){
 
     currentVideo =
@@ -1759,6 +1766,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
   /* Next inside popup */
+
   function nextPopupVideo(){
 
     currentVideo =
@@ -1776,6 +1784,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
   /* Close popup */
+
   function closeVideo(){
 
     lightbox.classList.remove("active");
@@ -1841,7 +1850,7 @@ document.addEventListener("DOMContentLoaded", function(){
   });
 
 
-  /* Click blurred background to close */
+  /* Click background to close */
 
   lightbox.addEventListener("click", function(event){
 
@@ -1898,158 +1907,218 @@ document.addEventListener("DOMContentLoaded", function(){
 
 });
 
-</script>
-  /* ========================================
+
+
+/* ========================================
    TESTIMONIAL CAROUSEL
    ======================================== */
 
-const testimonialSlides =
-  document.querySelectorAll(".testimonial-slide");
+document.addEventListener("DOMContentLoaded", function(){
 
-const testimonialDots =
-  document.querySelectorAll(".testimonial-dot");
-
-const testimonialPrev =
-  document.querySelector(".testimonial-prev");
-
-const testimonialNext =
-  document.querySelector(".testimonial-next");
-
-let testimonialIndex = 0;
-let testimonialTimer;
-
-
-/* SHOW SLIDE */
-
-function showTestimonial(index){
-
-  testimonialSlides.forEach((slide, i) => {
-
-    slide.classList.toggle(
-      "active",
-      i === index
+  const testimonialSlides =
+    document.querySelectorAll(
+      "#testimonials .testimonial-slide"
     );
 
-  });
-
-
-  testimonialDots.forEach((dot, i) => {
-
-    dot.classList.toggle(
-      "active",
-      i === index
+  const testimonialDots =
+    document.querySelectorAll(
+      "#testimonials .testimonial-dot"
     );
 
-  });
+  const testimonialPrev =
+    document.querySelector(
+      "#testimonials .testimonial-prev"
+    );
 
-  testimonialIndex = index;
-
-}
-
-
-/* NEXT */
-
-function nextTestimonial(){
-
-  let nextIndex =
-    (testimonialIndex + 1) %
-    testimonialSlides.length;
-
-  showTestimonial(nextIndex);
-
-}
+  const testimonialNext =
+    document.querySelector(
+      "#testimonials .testimonial-next"
+    );
 
 
-/* PREVIOUS */
+  /* Safety check */
 
-function previousTestimonial(){
+  if(
+    !testimonialSlides.length ||
+    !testimonialPrev ||
+    !testimonialNext
+  ){
 
-  let previousIndex =
-    (testimonialIndex - 1 +
-      testimonialSlides.length) %
-    testimonialSlides.length;
+    console.log("Testimonial carousel elements not found.");
 
-  showTestimonial(previousIndex);
-
-}
-
-
-/* BUTTONS */
-
-testimonialNext.addEventListener(
-  "click",
-  () => {
-
-    nextTestimonial();
-    restartTestimonialTimer();
+    return;
 
   }
-);
 
 
-testimonialPrev.addEventListener(
-  "click",
-  () => {
+  let testimonialIndex = 0;
 
-    previousTestimonial();
-    restartTestimonialTimer();
+  let testimonialTimer = null;
+
+
+  /* SHOW TESTIMONIAL */
+
+  function showTestimonial(index){
+
+    if(index < 0){
+
+      index = testimonialSlides.length - 1;
+
+    }
+
+    if(index >= testimonialSlides.length){
+
+      index = 0;
+
+    }
+
+
+    testimonialSlides.forEach(function(slide, i){
+
+      slide.classList.toggle(
+        "active",
+        i === index
+      );
+
+    });
+
+
+    testimonialDots.forEach(function(dot, i){
+
+      dot.classList.toggle(
+        "active",
+        i === index
+      );
+
+    });
+
+
+    testimonialIndex = index;
 
   }
-);
 
 
-/* DOTS */
+  /* NEXT */
 
-testimonialDots.forEach((dot, index) => {
+  function nextTestimonial(){
 
-  dot.addEventListener(
+    showTestimonial(
+      testimonialIndex + 1
+    );
+
+  }
+
+
+  /* PREVIOUS */
+
+  function previousTestimonial(){
+
+    showTestimonial(
+      testimonialIndex - 1
+    );
+
+  }
+
+
+  /* NEXT BUTTON */
+
+  testimonialNext.addEventListener(
     "click",
-    () => {
+    function(event){
 
-      showTestimonial(index);
+      event.preventDefault();
+      event.stopPropagation();
+
+      nextTestimonial();
+
       restartTestimonialTimer();
 
     }
   );
 
-});
 
+  /* PREVIOUS BUTTON */
 
-/* AUTOPLAY */
+  testimonialPrev.addEventListener(
+    "click",
+    function(event){
 
-function startTestimonialTimer(){
+      event.preventDefault();
+      event.stopPropagation();
 
-  testimonialTimer =
-    setInterval(
-      nextTestimonial,
-      6000
-    );
+      previousTestimonial();
 
-}
+      restartTestimonialTimer();
 
-
-function restartTestimonialTimer(){
-
-  clearInterval(testimonialTimer);
-
-  startTestimonialTimer();
-
-}
-
-
-/* RESPECT REDUCED MOTION */
-
-const reducedMotion =
-  window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
+    }
   );
 
 
-if(!reducedMotion.matches){
+  /* DOT BUTTONS */
 
-  startTestimonialTimer();
+  testimonialDots.forEach(function(dot, index){
 
-}
-  </script> 
+    dot.addEventListener(
+      "click",
+      function(event){
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        showTestimonial(index);
+
+        restartTestimonialTimer();
+
+      }
+    );
+
+  });
+
+
+  /* AUTO PLAY */
+
+  function startTestimonialTimer(){
+
+    testimonialTimer =
+      setInterval(
+        nextTestimonial,
+        6000
+      );
+
+  }
+
+
+  function restartTestimonialTimer(){
+
+    clearInterval(testimonialTimer);
+
+    startTestimonialTimer();
+
+  }
+
+
+  /* SHOW FIRST TESTIMONIAL */
+
+  showTestimonial(0);
+
+
+  /* START AUTO PLAY */
+
+  const reducedMotion =
+    window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+
+
+  if(!reducedMotion.matches){
+
+    startTestimonialTimer();
+
+  }
+
+});
+
+</script>
+
 </body>
 </html>
