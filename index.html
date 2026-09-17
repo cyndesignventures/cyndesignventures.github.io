@@ -40,17 +40,20 @@ nav{position:sticky;top:0;z-index:50;background:rgba(251,247,239,.9);backdrop-fi
 .nav-cta{padding:13px 19px;background:var(--ink);color:var(--cream);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
 
 /* HERO */
-.hero{min-height:calc(100vh - 82px);display:flex;align-items:center;position:relative;overflow:hidden;padding:90px 0}
+.hero{min-height:calc(100vh - 82px);display:flex;align-items:center;position:relative;overflow:hidden;padding:90px 0; isolation:isolate;}
+/* HERO CORNER CIRCLES */
 /* HERO CORNER CIRCLES */
 .hero-circles{
   position:absolute;
   width:520px;
   height:520px;
-  border-radius:50%;
-  background:var(--saffron);
   right:-170px;
   top:-180px;
+  border-radius:50%;
+  background:var(--saffron);
   z-index:0;
+  pointer-events:none;
+  animation:circleRotate 25s linear infinite;
 }
 
 /* RED CIRCLE */
@@ -75,6 +78,16 @@ nav{position:sticky;top:0;z-index:50;background:rgba(251,247,239,.9);backdrop-fi
   background:var(--indigo);
   top:155px;
   left:155px;
+}
+
+/* VISIBLE ROTATION MARK */
+@keyframes circleRotate{
+  from{
+    transform:rotate(0deg);
+  }
+  to{
+    transform:rotate(360deg);
+  }
 }
 
 .:after{content:"";position:absolute;width:300px;height:300px;background:var(--terracotta);left:-180px;bottom:-150px;transform:rotate(45deg);opacity:.95}
@@ -461,7 +474,7 @@ footer p,footer a{font-size:.9rem;line-height:1.8;color:#f2e5d2}
   gap:50px;
   align-items:end;
   position:relative;
-  z-index:1;
+  z-index:10;
 }
   .hero h1{font-size:clamp(4rem,19vw,7rem)}
   .hero-note{margin-top:25px}
