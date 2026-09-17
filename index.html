@@ -303,7 +303,15 @@ section{padding:110px 0}
 /* FOOTER */
 footer{background:var(--maroon);color:var(--cream);padding:70px 0 30px}
 .footer-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:50px}
-.footer-logo{width:190px;filter:brightness(0) invert(1);opacity:.95}
+.footer-logo{
+  width:190px;
+  height:auto;
+  max-height:80px;
+  object-fit:contain;
+  display:block;
+  opacity:.95;
+  filter:none;
+}
 footer h4{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:#e0b46b}
 footer p,footer a{font-size:.9rem;line-height:1.8;color:#f2e5d2}
 .copyright{border-top:1px solid rgba(255,255,255,.2);margin-top:55px;padding-top:20px;font-size:.7rem;opacity:.65;display:flex;justify-content:space-between}
