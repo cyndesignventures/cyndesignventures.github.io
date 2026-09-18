@@ -1192,6 +1192,115 @@ footer p,footer a{font-size:.9rem;line-height:1.8;color:#f2e5d2}
 }
 
 html,body{max-width:100%;overflow-x:hidden}
+/* ========================================
+   FLOATING FIXED NAVIGATION
+   ======================================== */
+
+.nav{
+  position:fixed;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(1180px,92%);
+  height:72px;
+  z-index:9999;
+
+  background:rgba(245,237,223,.94);
+  border:1px solid var(--line);
+  border-radius:18px;
+
+  box-shadow:0 10px 30px rgba(23,32,45,.12);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+
+
+/* NAV INNER */
+
+.nav-inner{
+  width:100%;
+  height:100%;
+  padding:0 22px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+
+/* LOGO */
+
+.logo{
+  width:auto;
+  height:46px;
+  max-width:170px;
+
+  object-fit:contain;
+  display:block;
+}
+
+
+/* NAV LINKS */
+
+.navlinks{
+  display:flex;
+  align-items:center;
+  gap:32px;
+}
+
+
+/* CTA */
+
+.nav-cta{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  height:42px;
+  padding:0 18px;
+
+  background:var(--ink);
+  color:var(--cream);
+
+  border-radius:999px;
+}
+
+
+/* GIVE PAGE SPACE FOR FIXED NAV */
+
+body{
+  padding-top:90px;
+}
+
+
+/* ========================================
+   MOBILE
+   ======================================== */
+
+@media(max-width:850px){
+
+  .nav{
+    top:12px;
+    width:94%;
+    height:64px;
+    border-radius:15px;
+  }
+
+  .nav-inner{
+    padding:0 16px;
+  }
+
+  .logo{
+    height:40px;
+    max-width:145px;
+  }
+
+  body{
+    padding-top:80px;
+  }
+
+}
+  
 </style>
 </head>
 
